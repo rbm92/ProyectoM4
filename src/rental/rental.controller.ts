@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { RentalService } from './rental.service';
 import { RentalDto } from './dto/rental.dto';
-import { UpdateRentalDto } from './dto/update-rental.dto';
 
 @Controller('rental')
 export class RentalController {
@@ -26,13 +25,13 @@ export class RentalController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.rentalService.findOne(id);
+  async findOne(@Param('id') id: string, @Body() rentalDto: RentalDto) {
+    return await this.rentalService.findOne(id, rentalDto);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRentalDto: UpdateRentalDto) {
-    return this.rentalService.update(id, updateRentalDto);
+  async update(@Param('id') id: string, @Body() rentalDto: RentalDto) {
+    return await this.rentalService.update(id, rentalDto);
   }
 
   @Delete(':id')
