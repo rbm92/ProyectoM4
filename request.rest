@@ -4,9 +4,8 @@ POST http://localhost:3000/api/v1/user/register
 Content-Type: application/json
 
 {
-    "email": "admin@admin.com",
-    "password": "admin",
-    "role": "admin"
+    "email": "miemail@user.com",
+    "password": "1234"
 }
 
 ### Autenticación de usuario
@@ -15,8 +14,8 @@ POST http://localhost:3000/api/v1/user/login
 Content-Type: application/json
 
 {
-    "email": "admin@admin.com",
-    "password": "admin"
+    "email": "miemail@user.com",
+    "password": "1234"
 }
 
 ### Actualización del perfil del usuario
@@ -39,24 +38,24 @@ POST http://localhost:3000/api/v1/car
 Content-Type: application/json
 
 {
-    "brand": "Audi",
-    "model": "A3",
-    "year": 2019,
-    "price_day": 20
+    "brand": "Renault",
+    "model": "Clio",
+    "year": 2021,
+    "price_day": 25
 }
 
 ### Actualización de la info de un coche
 
-PATCH  http://localhost:3000/api/v1/car/dbb3a4b0-bb0b-465d-bc7a-a14445c9683f
+PATCH  http://localhost:3000/api/v1/car/5068ab90-c86a-4551-ba90-54d86b5f478f
 Content-Type: application/json
 
 {
     "engine": "diesel",
     "type": "tourism",
-    "seats": 5,
-    "autonomy": 600,
-    "consum": 6,
-    "bond": 750
+    "seats": 4,
+    "autonomy": 700,
+    "consum": 4,
+    "bond": 800
 }
 
 ### Eliminar un coche
@@ -75,14 +74,24 @@ GET  http://localhost:3000/api/v1/car/?available=1&engine=gasoline
 
 GET  http://localhost:3000/api/v1/car/price/?available=1&order=1&limit=1
 
-### Crear nueva reserva
+### Alquilar coche
 
 POST http://localhost:3000/api/v1/rental
 Content-Type: application/json
 
 {
-    "carId": 1,
-    "userId": 1,
+    "carId": "09b23725-eec2-4053-a06a-b95322adc4c4",
+    "userId": "fcb32267-8958-4434-8410-c268c8edb686",
     "start_date": "2021-12-01",
     "finish_date": "2021-12-07"
+}
+
+### Devolver coche
+
+PATCH http://localhost:3000/api/v1/rental/232cd8db-2c02-43c5-9e0b-f89ccac44d1d
+ontent-Type: application/json
+
+{
+    "carId": "09b23725-eec2-4053-a06a-b95322adc4c4",
+    "userId": "fcb32267-8958-4434-8410-c268c8edb686"
 }
