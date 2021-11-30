@@ -1,0 +1,88 @@
+### Registro de usuario
+
+POST http://localhost:3000/api/v1/user/register
+Content-Type: application/json
+
+{
+    "email": "admin@admin.com",
+    "password": "admin",
+    "role": "admin"
+}
+
+### Autenticación de usuario
+
+POST http://localhost:3000/api/v1/user/login
+Content-Type: application/json
+
+{
+    "email": "admin@admin.com",
+    "password": "admin"
+}
+
+### Actualización del perfil del usuario
+
+PATCH http://localhost:3000/api/v1/user/6c0ae507-27a6-4916-8dde-9c78bc3c2412
+Content-Type: application/json
+
+{
+    "address": "Calle Falso, 123",
+    "license_num": "123456789AQ"
+}
+
+### Eliminación del perfil de un usuario
+
+DELETE http://localhost:3000/api/v1/user/56351786-dcfa-4537-aaa0-ee813e604aff
+
+### Adición de un coche
+
+POST http://localhost:3000/api/v1/car
+Content-Type: application/json
+
+{
+    "brand": "Audi",
+    "model": "A3",
+    "year": 2019,
+    "price_day": 20
+}
+
+### Actualización de la info de un coche
+
+PATCH  http://localhost:3000/api/v1/car/dbb3a4b0-bb0b-465d-bc7a-a14445c9683f
+Content-Type: application/json
+
+{
+    "engine": "diesel",
+    "type": "tourism",
+    "seats": 5,
+    "autonomy": 600,
+    "consum": 6,
+    "bond": 750
+}
+
+### Eliminar un coche
+
+DELETE http://localhost:3000/api/v1/car/237710f8-558b-4ce9-9549-ded6e74d3bbd
+
+### Buscar todos los coches disponibles
+
+GET  http://localhost:3000/api/v1/car/?available=1
+
+### Filtrar por parámetros
+
+GET  http://localhost:3000/api/v1/car/?available=1&engine=gasoline
+
+### Ordenar por precio (o año) y limitar el número de registros que aparecen
+
+GET  http://localhost:3000/api/v1/car/price/?available=1&order=1&limit=1
+
+### Crear nueva reserva
+
+POST http://localhost:3000/api/v1/rental
+Content-Type: application/json
+
+{
+    "carId": 1,
+    "userId": 1,
+    "start_date": "2021-12-01",
+    "finish_date": "2021-12-07"
+}
