@@ -15,7 +15,7 @@ export class RentalService {
     private userService: UserService,
   ) { }
 
-  async create(rentalDto): Promise<Rental> {
+  async create(rentalDto: RentalDto): Promise<Rental> {
     const rental = new Rental();
     const car = await this.carService.findOne(rentalDto.carId);
     const user = await this.userService.findOne(rentalDto.userId);
@@ -30,7 +30,7 @@ export class RentalService {
 
       Object.assign(rental, rentalDto);
 
-      await getConnection().transaction(async manager => {
+      await getConnection().transaction(async (manager) => {
 
         newRental = await manager.save(rental)
         await manager.save(car)
@@ -49,15 +49,15 @@ export class RentalService {
     return `This action returns all rental`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} rental`;
   }
 
-  update(id: number, updateRentalDto: UpdateRentalDto) {
+  update(id: string, updateRentalDto: UpdateRentalDto) {
     return `This action updates a #${id} rental`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} rental`;
   }
 }
