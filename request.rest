@@ -4,13 +4,24 @@ POST http://localhost:3000/api/v1/user/register
 Content-Type: application/json
 
 {
-    "email": "miemail@user.com",
+    "email": "miemail2@user.com",
     "password": "1234"
 }
+
 
 ### Autenticación de usuario
 
 POST http://localhost:3000/api/v1/user/login
+Content-Type: application/json
+
+{
+    "email": "miemail2@user.com",
+    "password": "1234"
+}
+
+### Autenticación de usuario (con auth)
+
+POST http://localhost:3000/api/v1/auth/login
 Content-Type: application/json
 
 {
@@ -77,6 +88,7 @@ GET  http://localhost:3000/api/v1/car/price/?available=1&order=1&limit=1
 ### Alquilar coche
 
 POST http://localhost:3000/api/v1/rental
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1pZW1haWxAdXNlci5jb20iLCJpYXQiOjE2MzgzNjU1MTksImV4cCI6MTYzODQ1MTkxOX0.KcZg4i7qShri-jrGQVGWXrrFibNTk5St5nwaW09QqW4
 Content-Type: application/json
 
 {
@@ -89,7 +101,7 @@ Content-Type: application/json
 ### Devolver coche
 
 PATCH http://localhost:3000/api/v1/rental/232cd8db-2c02-43c5-9e0b-f89ccac44d1d
-ontent-Type: application/json
+Content-Type: application/json
 
 {
     "carId": "09b23725-eec2-4053-a06a-b95322adc4c4",

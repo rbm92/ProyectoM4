@@ -6,10 +6,13 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { RentalService } from './rental.service';
 import { RentalDto } from './dto/rental.dto';
+import { AuthGuard } from '@nestjs/passport'
 
+@UseGuards(AuthGuard('jwt'))
 @Controller('rental')
 export class RentalController {
   constructor(private readonly rentalService: RentalService) {}
@@ -39,3 +42,7 @@ export class RentalController {
     return this.rentalService.remove(id);
   }
 }
+function ApiBearerAuth(arg0: string) {
+  throw new Error('Function not implemented.');
+}
+
