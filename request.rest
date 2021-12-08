@@ -25,7 +25,7 @@ POST http://localhost:3000/api/v1/auth/login
 Content-Type: application/json
 
 {
-    "email": "miemail@user.com",
+    "email": "miemail2@user.com",
     "password": "1234"
 }
 
@@ -46,13 +46,14 @@ DELETE http://localhost:3000/api/v1/user/56351786-dcfa-4537-aaa0-ee813e604aff
 ### Adición de un coche
 
 POST http://localhost:3000/api/v1/car
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1pZW1haWwyQHVzZXIuY29tIiwiaWF0IjoxNjM4OTYyMTA2LCJleHAiOjE2MzkwNDg1MDZ9.15SmQiPGYeYwb375g15YSKyE8WphCTZEHX6lXzRyEP0
 Content-Type: application/json
 
 {
     "brand": "Renault",
-    "model": "Clio",
-    "year": 2021,
-    "price_day": 25
+    "model": "Megane",
+    "year": 2020,
+    "price_day": 20
 }
 
 ### Actualización de la info de un coche
