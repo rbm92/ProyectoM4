@@ -5,6 +5,7 @@ import { CarDto } from './dto/car.dto';
 import { UpdateCarDto } from './dto/update-car.dto';
 import { Car } from './entities/car.entity';
 import { UserService } from 'src/user/user.service';
+import { request } from 'express';
 
 @Injectable()
 export class CarService {
@@ -50,6 +51,9 @@ export class CarService {
     // const user = await this.userService.findOne(role);
     // if ((user.role = 'admin')) {
       const car: Car = new Car();
+
+      // const role = await this.userService.findOne(user.role);
+      // user.role = role;
 
       car.brand = newCar.brand;
       car.model = newCar.model;

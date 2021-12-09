@@ -6,8 +6,10 @@ import { Car } from './entities/car.entity';
 import { Request } from 'express';
 import { AuthGuard } from '@nestjs/passport';
 import { Roles } from '../common/utils/roles.decorators'
+import { RolesGuard } from 'src/common/guards/roles.guard';
 
 @Controller('car')
+@UseGuards(RolesGuard)
 export class CarController {
   constructor(private readonly carService: CarService) { }
   
@@ -34,6 +36,14 @@ export class CarController {
   findOne(@Param('id') id: string) {
     return this.carService.findOne(id);
   }
+
+  // // Añadir coche
+  // @UseGuards(AuthGuard('jwt'))
+  // @Post()
+  // @Roles('admin')
+  // async create(@Req() req: Request): Promise<CarDto> {
+  //   return await this.carService.create(req.query);
+  // }
 
   // Añadir coche
   @UseGuards(AuthGuard('jwt'))
