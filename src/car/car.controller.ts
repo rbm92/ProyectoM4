@@ -5,11 +5,13 @@ import { UpdateCarDto } from './dto/update-car.dto';
 import { Car } from './entities/car.entity';
 import { Request } from 'express';
 import { AuthGuard } from '@nestjs/passport';
-import { Roles } from '../common/utils/roles.decorators'
-import { RolesGuard } from 'src/common/guards/roles.guard';
+import { Roles } from '../auth/decorators/roles.decorators'
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { Role } from 'src/auth/model/role.enum';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('car')
-@UseGuards(RolesGuard)
 export class CarController {
   constructor(private readonly carService: CarService) { }
   
@@ -46,9 +48,10 @@ export class CarController {
   // }
 
   // Añadir coche
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  // @ApiBearerAuth('access-token')
   @Post()
-  @Roles('admin')
+  @Roles(Role.Admin)
   create(@Body() createCarDto: CarDto) {
     return this.carService.create(createCarDto);
   }
@@ -61,8 +64,9 @@ export class CarController {
   }
 
   // Eliminar un coche
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Delete(':id')
+  @Roles(Role.Admin)
   delete(@Param('id') id: string) {
     return this.carService.delete(id);
   }

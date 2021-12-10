@@ -46,7 +46,7 @@ DELETE http://localhost:3000/api/v1/user/56351786-dcfa-4537-aaa0-ee813e604aff
 ### Adición de un coche
 
 POST http://localhost:3000/api/v1/car
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTYzOTA1NjM0NiwiZXhwIjoxNjM5MTQyNzQ2fQ.lnxz3kbq3mMlI0VWILTscyjsAa5yQSms3kQMg4lHCtk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTYzOTEzODMyMiwiZXhwIjoxNjM5MjI0NzIyfQ.KcR768hc2RFFMxOTQM3lDcM-OrZ60TEneaAKb4Q4EiE
 
 {
     "brand": "Renault",
@@ -71,7 +71,8 @@ Content-Type: application/json
 
 ### Eliminar un coche
 
-DELETE http://localhost:3000/api/v1/car/237710f8-558b-4ce9-9549-ded6e74d3bbd
+DELETE http://localhost:3000/api/v1/car/235016d2-1042-4d76-bf1e-fb7219727167
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTYzOTEzODQxNywiZXhwIjoxNjM5MjI0ODE3fQ.uGo7aJQyLWYXj-UALjMs6PxiO5jOFUI95TyVoivT6wo
 
 ### Buscar todos los coches disponibles
 
