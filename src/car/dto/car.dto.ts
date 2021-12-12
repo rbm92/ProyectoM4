@@ -41,7 +41,7 @@ export class CarDto {
     readonly photo: string
 
     @ApiProperty({ example: 30 })
-    readonly price_day: string
+    readonly price_day: number
 
     @ApiProperty({ example: true })
     readonly available: boolean

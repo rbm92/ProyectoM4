@@ -57,7 +57,7 @@ export class Car {
 
     @ApiProperty({ example: 30 })
     @Column()
-    price_day: string
+    price_day: number
 
     @ApiProperty({ example: true })
     @Column({ default: true })

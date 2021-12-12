@@ -57,8 +57,9 @@ export class CarController {
   }
 
   // Actualizar un coche (buscar por ID)
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Patch(':id')
+  @Roles(Role.Admin)
   update(@Param('id') id: string, @Body() updateCarDto: UpdateCarDto) {
     return this.carService.update(id, updateCarDto);
   }

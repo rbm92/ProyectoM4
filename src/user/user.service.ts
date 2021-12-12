@@ -35,7 +35,6 @@ export class UserService {
     user.photo = newUser.photo;
     user.license_num = newUser.license_num;
     user.address = newUser.address;
-    user.active_rental = newUser.active_rental;
 
     return await this.userRepository.save(user);
   }
@@ -45,13 +44,18 @@ export class UserService {
     return await this.userRepository.remove(user);
   }
 
-  findAll() {
-    return `This action returns all user`;
+  async findUsers(query: any): Promise<User[]> {
+    return await this.userRepository.find({ where: query });
   }
 
   async findOne(email: string): Promise<User> {
-    const user = await this.userRepository.findOne({ email });
-    console.log('findOne', user)
-    return user
+    try {
+      const user = await this.userRepository.findOne({ email });
+      console.log('findOne', user)
+      return user
+      
+    } catch (error) {
+      throw new HttpException('user not found', HttpStatus.BAD_REQUEST)
+    }
   }
 }

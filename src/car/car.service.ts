@@ -1,11 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CarDto } from './dto/car.dto';
 import { UpdateCarDto } from './dto/update-car.dto';
 import { Car } from './entities/car.entity';
 import { UserService } from 'src/user/user.service';
-import { request } from 'express';
 
 @Injectable()
 export class CarService {
@@ -20,7 +19,7 @@ export class CarService {
   }
 
   async sortByPrice({ order = 1, limit = 0, ...query } = {}): Promise<Car[]> {
-    let sort;
+    let sort:any;
     if (order == 1) sort = 'ASC';
     if (order == 0) sort = 'DESC';
 
@@ -44,16 +43,16 @@ export class CarService {
   }
 
   async findOne(id: string): Promise<Car> {
+    try{
     return await this.carRepository.findOne(id);
+    } catch (error) {
+      throw new HttpException('car not found', HttpStatus.BAD_REQUEST)
+    }
   }
 
   async create(newCar: CarDto ): Promise<Car> {
-    // const user = await this.userService.findOne(role);
-    // if ((user.role = 'admin')) {
+    try{
       const car: Car = new Car();
-
-      // const role = await this.userService.findOne(user.role);
-      // user.role = role;
 
       car.brand = newCar.brand;
       car.model = newCar.model;
@@ -73,10 +72,14 @@ export class CarService {
       car.gear = newCar.gear;
 
       return await this.carRepository.save(car);
-    // }
+
+    } catch (error) {
+      throw new HttpException('missing data, car was not added', HttpStatus.FORBIDDEN)
+    }
   }
 
   async update(carId: string, newCar: UpdateCarDto): Promise<Car> {
+    try{
     let car = await this.carRepository.findOne(carId);
 
     car.brand = newCar.brand;
@@ -97,10 +100,17 @@ export class CarService {
     car.gear = newCar.gear;
 
     return await this.carRepository.save(car);
+    } catch (error) {
+      throw new HttpException('missing data, car was not updated', HttpStatus.FORBIDDEN)
+    }
   }
 
   async delete(carId: string): Promise<Car> {
+    try{
     const car = await this.carRepository.findOne(carId);
     return await this.carRepository.remove(car);
+    } catch (error) {
+      throw new HttpException('car not found', HttpStatus.FORBIDDEN)
+    }
   }
 }
