@@ -9,13 +9,19 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [ConfigModule.forRoot(),
-  TypeOrmModule.forRoot({
-    // type: "mysql",
-    // url: process.env.CLEARDB_DATABASE_URL,
-    // entities: ["dist/**/*.entity.js"],
-    // synchronize: true
-  }), CarModule, UserModule, RentalModule, AuthModule],
+  imports: [
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      url: process.env.CLEARDB_DATABASE_URL,
+      entities: ['dist/**/*.entity.js'],
+      synchronize: true,
+    }),
+    CarModule,
+    UserModule,
+    RentalModule,
+    AuthModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
