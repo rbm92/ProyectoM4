@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Req,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from 'src/auth/dto/login.dto';
@@ -40,13 +50,12 @@ export class UserController {
   }
 
   // Lista de usuarios registrados (incluído filtro por parámetros)
-  @UseGuards(JwtAuthGuard,RolesGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Get()
   @Roles(Role.Admin)
   async findUsers(@Req() req: Request): Promise<User[]> {
     return await this.userService.findUsers(req.query);
   }
-  
 
   // Encontrar usuario por ID
   @UseGuards(JwtAuthGuard, RolesGuard)

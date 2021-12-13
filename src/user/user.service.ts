@@ -3,7 +3,6 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
-import { Encryptation } from 'src/common/utils/encryptation.helper';
 import { LoginUserDto } from 'src/auth/dto/login.dto';
 
 @Injectable()
@@ -29,7 +28,7 @@ export class UserService {
   // }
 
   async update(userId: string, newUser: CreateUserDto): Promise<User> {
-    let user = await this.userRepository.findOne(userId);
+    const user = await this.userRepository.findOne(userId);
     user.email = newUser.email;
     user.password = newUser.password;
     user.photo = newUser.photo;
@@ -51,11 +50,20 @@ export class UserService {
   async findOne(email: string): Promise<User> {
     try {
       const user = await this.userRepository.findOne({ email });
-      console.log('findOne', user)
-      return user
-      
+      console.log('findOneEmail', user);
+      return user;
     } catch (error) {
-      throw new HttpException('user not found', HttpStatus.BAD_REQUEST)
+      throw new HttpException('user not found', HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async findOneById(id: string): Promise<User> {
+    try {
+      const user = await this.userRepository.findOne(id);
+      console.log('findOneById', user);
+      return user;
+    } catch (error) {
+      throw new HttpException('user not found', HttpStatus.BAD_REQUEST);
     }
   }
 }

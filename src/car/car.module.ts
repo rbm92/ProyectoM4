@@ -11,4 +11,4 @@ import { UserModule } from 'src/user/user.module';
   providers: [CarService],
   exports: [CarService],
 })
-export class CarModule { }
+export class CarModule {}

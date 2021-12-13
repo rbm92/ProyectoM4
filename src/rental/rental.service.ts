@@ -18,7 +18,7 @@ export class RentalService {
   async create(rentalDto: RentalDto): Promise<Rental> {
     const rental = new Rental();
     const car = await this.carService.findOne(rentalDto.carId);
-    const user = await this.userService.findOne(rentalDto.userId);
+    const user = await this.userService.findOneById(rentalDto.userId);
     let newRental: Rental;
 
     try {
@@ -28,7 +28,14 @@ export class RentalService {
           HttpStatus.BAD_REQUEST,
         );
 
+      if (user.active_rental)
+        throw new HttpException(
+          'this user already has an active rental',
+          HttpStatus.BAD_REQUEST,
+        );
+
       car.available = false;
+      user.active_rental = true;
       rental.car = car;
       rental.user = user;
 
@@ -37,6 +44,7 @@ export class RentalService {
       await getConnection().transaction(async (manager) => {
         newRental = await manager.save(rental);
         await manager.save(car);
+        await manager.save(user);
       });
 
       return newRental;
@@ -50,7 +58,10 @@ export class RentalService {
 
   async findRentals(query: any): Promise<Rental[]> {
     try {
-      return await this.rentalRepository.find({ where: query });
+      return await this.rentalRepository.find({
+        where: query,
+        relations: ['car', 'user'],
+      });
     } catch (error) {
       throw new HttpException('rental not found', HttpStatus.BAD_REQUEST);
     }
@@ -65,9 +76,18 @@ export class RentalService {
           user: rental.userId,
           return_date: null,
         },
-        relations: ['car'],
+        relations: ['car', 'user'],
       });
-      
+    } catch (error) {
+      throw new HttpException('rental not found', HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async findOneV2(id: string): Promise<Rental> {
+    try {
+      const rental = await this.rentalRepository.findOne(id);
+      console.log('findOneById rental', rental);
+      return rental;
     } catch (error) {
       throw new HttpException('rental not found', HttpStatus.BAD_REQUEST);
     }
@@ -76,15 +96,49 @@ export class RentalService {
   async sortByReturnDate({ order = 1, limit = 0, ...query } = {}): Promise<
     Rental[]
   > {
-    let sort;
-    if (order == 1) sort = 'ASC';
-    if (order == 0) sort = 'DESC';
+    try {
+      console.log('Console de query', query);
 
-    return await this.rentalRepository.find({
-      where: query,
-      order: { return_date: sort },
-      take: limit,
-    });
+      let sort: any;
+      if (order == 1) sort = 'ASC';
+      if (order == 0) sort = 'DESC';
+
+      return await this.rentalRepository.find({
+        where: query,
+        order: { return_date: sort },
+        take: limit,
+      });
+    } catch (error) {}
+  }
+
+  async findRentalsOneUser(id: string): Promise<Rental[]> {
+    try {
+      return await this.rentalRepository.find({
+        where: {
+          user: id,
+        },
+      });
+    } catch (error) {
+      throw new HttpException(
+        'user has no rental history',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
+  async findRentalsOneCar(id: string): Promise<Rental[]> {
+    try {
+      return await this.rentalRepository.find({
+        where: {
+          car: id,
+        },
+      });
+    } catch (error) {
+      throw new HttpException(
+        'car has no rental history',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
   }
 
   async update(id: string, rentalDto: RentalDto): Promise<Rental> {
@@ -92,17 +146,30 @@ export class RentalService {
       const [rental] = await this.findOne(id, rentalDto);
       console.log([rental]);
       const car = await this.carService.findOne(rental.car.id);
+      const user = await this.userService.findOneById(rentalDto.userId);
 
       let newRental: Rental;
 
-      if (car.available) return;
+      if (!user.active_rental)
+        throw new HttpException(
+          'this user has no active rentals',
+          HttpStatus.BAD_REQUEST,
+        );
+
+      if (car.available)
+        throw new HttpException(
+          'this car is already available',
+          HttpStatus.BAD_REQUEST,
+        );
 
       car.available = true;
+      user.active_rental = false;
       rental.return_date = new Date();
 
       await getConnection().transaction(async (manager) => {
         newRental = await manager.save(rental);
         await manager.save(car);
+        await manager.save(user);
       });
 
       return newRental;

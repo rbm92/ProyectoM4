@@ -1,15 +1,31 @@
-### Registro de admin (primera vez sólo)
+### Buscar todos los coches disponibles
+GET  http://localhost:3000/api/v1/car/?available=1
 
+
+### Filtrar coche por parámetros
+GET  http://localhost:3000/api/v1/car/?available=1&engine=diesel
+
+
+### Ordenar coche por precio y limitar el número de registros que aparecen
+GET  http://localhost:3000/api/v1/car/price/?available=1&order=0&limit=2
+
+
+### Ordenar coche por año y limitar el número de registros que aparecen
+GET  http://localhost:3000/api/v1/car/year/?available=1&order=1&limit=4
+
+
+### Registro de admin (primera vez sólo)
 POST http://localhost:3000/api/v1/user/register
 Content-Type: application/json
 
 {
     "email": "admin@admin.com",
-    "password": "admin"
+    "password": "admin",
+    "role": "admin"
 }
+
 
 ### Registro de usuario
-
 POST http://localhost:3000/api/v1/user/register
 Content-Type: application/json
 
@@ -18,18 +34,18 @@ Content-Type: application/json
     "password": "1234"
 }
 
-### Autenticación de usuario
 
+### Autenticación de usuario
 POST http://localhost:3000/api/v1/auth/login
 Content-Type: application/json
 
 {
-    "email": "miemail@user.com",
+    "email": "miotro@mail.com",
     "password": "1234"
 }
 
-### Autenticación de admin
 
+### Autenticación de admin
 POST http://localhost:3000/api/v1/auth/login
 Content-Type: application/json
 
@@ -38,24 +54,24 @@ Content-Type: application/json
     "password": "admin"
 }
 
-### Actualización del perfil del usuario (user)
 
+### Actualización del perfil del usuario
 PATCH http://localhost:3000/api/v1/user/fcb32267-8958-4434-8410-c268c8edb686
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1pZW1haWxAdXNlci5jb20iLCJpYXQiOjE2MzkzMDk4OTEsImV4cCI6MTYzOTM5NjI5MX0.gmWoqvKZqs_2ndjjsuDyxMy3-xOcPCy_4-I0BORU31s
 Content-Type: application/json
 
 {
-    "email": "",
-    "password": ""
+    "license_num": "123456789A",
+    "address": "10 Downing Street, London"
 }
 
-### Eliminación del perfil de un usuario (user)
 
+### Eliminación del perfil de un usuario
 DELETE http://localhost:3000/api/v1/user/56351786-dcfa-4537-aaa0-ee813e604aff
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1pZW1haWxAdXNlci5jb20iLCJpYXQiOjE2MzkzMDI5MjcsImV4cCI6MTYzOTM4OTMyN30.vUzIyMJ28CgT6xJSVPZBfZLnDamrcYVRY2LPUJcK4ew
 
-### Adición de un coche (admin)
 
+### Adición de un coche (permiso admin)
 POST http://localhost:3000/api/v1/car
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1pZW1haWxAdXNlci5jb20iLCJpYXQiOjE2MzkzMDI5MjcsImV4cCI6MTYzOTM4OTMyN30.vUzIyMJ28CgT6xJSVPZBfZLnDamrcYVRY2LPUJcK4ew
 Content-Type: application/json
@@ -67,8 +83,8 @@ Content-Type: application/json
     "price_day": 20
 }
 
-### Actualización de la info de un coche (admin)
 
+### Actualización de la info de un coche (permiso admin)
 PATCH  http://localhost:3000/api/v1/car/5068ab90-c86a-4551-ba90-54d86b5f478f
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1pZW1haWxAdXNlci5jb20iLCJpYXQiOjE2MzkzMDI5MjcsImV4cCI6MTYzOTM4OTMyN30.vUzIyMJ28CgT6xJSVPZBfZLnDamrcYVRY2LPUJcK4ew
 Content-Type: application/json
@@ -82,42 +98,56 @@ Content-Type: application/json
     "bond": 800
 }
 
-### Eliminar un coche (admin)
 
+### Eliminar un coche (permiso admin)
 DELETE http://localhost:3000/api/v1/car/235016d2-1042-4d76-bf1e-fb7219727167
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTYzOTEzODQxNywiZXhwIjoxNjM5MjI0ODE3fQ.uGo7aJQyLWYXj-UALjMs6PxiO5jOFUI95TyVoivT6wo
 
-### Buscar todos los coches disponibles
 
-GET  http://localhost:3000/api/v1/car/?available=1
-
-### Filtrar coche por parámetros
-
-GET  http://localhost:3000/api/v1/car/?available=1&engine=gasoline
-
-### Ordenar coche por precio (o año) y limitar el número de registros que aparecen
-
-GET  http://localhost:3000/api/v1/car/price/?available=1&order=1&limit=1
-
-### Alquilar coche (user)
-
+### Alquilar coche
 POST http://localhost:3000/api/v1/rental
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1pZW1haWxAdXNlci5jb20iLCJpYXQiOjE2MzkzMDI5MjcsImV4cCI6MTYzOTM4OTMyN30.vUzIyMJ28CgT6xJSVPZBfZLnDamrcYVRY2LPUJcK4ew
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1pb3Ryb0BtYWlsLmNvbSIsImlhdCI6MTYzOTM4ODc4MiwiZXhwIjoxNjM5NDc1MTgyfQ.FZwJ1diJhy9-s1TQ5DonNBrGFWmLEHUOwSkjmAT0liQ
 Content-Type: application/json
 
 {
-    "carId": "09b23725-eec2-4053-a06a-b95322adc4c4",
-    "userId": "fcb32267-8958-4434-8410-c268c8edb686",
+    "carId": "05484aaa-d551-4038-8746-01948c378570",
+    "userId": "6c0ae507-27a6-4916-8dde-9c78bc3c2412",
     "start_date": "2021-12-15",
     "finish_date": "2021-12-22"
 }
 
-### Devolver coche (admin)
 
-PATCH http://localhost:3000/api/v1/rental/c20005ee-7721-46eb-bbea-a07dfc8878d6
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTYzOTMwNjE5NiwiZXhwIjoxNjM5MzkyNTk2fQ.YMahe1b4uI6c7Dhhf9z3JWuJGHN-96wPMCzsr70P6Bw
+### Devolver coche (permiso admin)
+PATCH http://localhost:3000/api/v1/rental/78e147fc-2582-45dc-ad1a-bdf530d040b4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTYzOTM4ODgyMywiZXhwIjoxNjM5NDc1MjIzfQ.RViycsa1PibI9UC1ELcsKcGG7uZhKToFV3GC_lr7SZM
+Content-Type: application/json
 
 {
-    "carId": "09b23725-eec2-4053-a06a-b95322adc4c4",
-    "userId": "fcb32267-8958-4434-8410-c268c8edb686"
+    "carId": "05484aaa-d551-4038-8746-01948c378570",
+    "userId": "6c0ae507-27a6-4916-8dde-9c78bc3c2412"
 }
+
+
+### Listado de todas las reservas (permiso admin)
+GET http://localhost:3000/api/v1/rental/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTYzOTM5ODU4MCwiZXhwIjoxNjM5NDg0OTgwfQ.uyD3HcXK9ofWEw2tsK6vOwdXsUoIV3Hswkk4U0esNe4
+
+
+### Mostrar una reserva (permiso admin)
+GET http://localhost:3000/api/v1/rental/7410f746-6828-4420-822a-94504e48ea69
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTYzOTM5ODU4MCwiZXhwIjoxNjM5NDg0OTgwfQ.uyD3HcXK9ofWEw2tsK6vOwdXsUoIV3Hswkk4U0esNe4
+
+
+### Ordenar reservas por fecha de devolución (permiso admin)
+GET http://localhost:3000/api/v1/rental/retdate/?order=1&limit=2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTYzOTM5ODU4MCwiZXhwIjoxNjM5NDg0OTgwfQ.uyD3HcXK9ofWEw2tsK6vOwdXsUoIV3Hswkk4U0esNe4
+
+
+### Historial de reservas de un coche (permiso admin)
+GET http://localhost:3000/api/v1/rental/car/05484aaa-d551-4038-8746-01948c378570
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTYzOTM5ODU4MCwiZXhwIjoxNjM5NDg0OTgwfQ.uyD3HcXK9ofWEw2tsK6vOwdXsUoIV3Hswkk4U0esNe4
+
+
+### Listado de todas las reservas de un cliente
+GET http://localhost:3000/api/v1/rental/user/6c0ae507-27a6-4916-8dde-9c78bc3c2412
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTYzOTM5ODU4MCwiZXhwIjoxNjM5NDg0OTgwfQ.uyD3HcXK9ofWEw2tsK6vOwdXsUoIV3Hswkk4U0esNe4

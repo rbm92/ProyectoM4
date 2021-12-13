@@ -10,6 +10,6 @@ import { Rental } from './entities/rental.entity';
   imports: [CarModule, UserModule, TypeOrmModule.forFeature([Rental])],
   controllers: [RentalController],
   providers: [RentalService],
-  exports: [RentalService]
+  exports: [RentalService],
 })
 export class RentalModule {}

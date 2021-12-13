@@ -1,4 +1,6 @@
-[{
+[
+  {
     "email": "user1",
-    "password": "1234"  
-  }]
+    "password": "1234"
+  }
+]

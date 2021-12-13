@@ -11,7 +11,6 @@ import {
 } from '@nestjs/common';
 import { RentalService } from './rental.service';
 import { RentalDto } from './dto/rental.dto';
-import { AuthGuard } from '@nestjs/passport';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { Roles } from 'src/auth/decorators/roles.decorators';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
@@ -38,18 +37,32 @@ export class RentalController {
     return await this.rentalService.findRentals(req.query);
   }
 
-  // Encontrar reservas por ID
-  @Get(':id')
-  async findOne(@Param('id') id: string, @Body() rentalDto: RentalDto) {
-    return await this.rentalService.findOne(id, rentalDto);
-  }
+  // // Encontrar reservas por ID
+  // @Get(':id')
+  // async findOne(@Param('id') id: string, @Body() rentalDto: RentalDto) {
+  //   return await this.rentalService.findOne(id, rentalDto);
+  // }
 
   // Ordenar por fecha de devolución
   @UseGuards(RolesGuard)
-  @Get('return_date')
+  @Get('retdate')
   @Roles(Role.Admin)
-  async sortByYear(@Req() req: Request): Promise<Rental[]> {
+  async sortByReturnDate(@Req() req: Request): Promise<Rental[]> {
     return await this.rentalService.sortByReturnDate(req.query);
+  }
+
+  // Historial de reservas de un coche
+  @UseGuards(RolesGuard)
+  @Get('car/:id')
+  @Roles(Role.Admin)
+  async findRentalsOneCar(@Param('id') id: string): Promise<Rental[]> {
+    return await this.rentalService.findRentalsOneCar(id);
+  }
+
+  // Mostrar las reservas de un usuario
+  @Get('user/:id')
+  async findRentalsOneUser(@Param('id') id: string): Promise<Rental[]> {
+    return await this.rentalService.findRentalsOneUser(id);
   }
 
   // Actualizar reserva (devolver coche)
@@ -58,6 +71,12 @@ export class RentalController {
   @Roles(Role.Admin)
   async update(@Param('id') id: string, @Body() rentalDto: RentalDto) {
     return await this.rentalService.update(id, rentalDto);
+  }
+
+  // Encontrar una reserva
+  @Get(':id')
+  async findOneV2(@Param('id') id: string) {
+    return await this.rentalService.findOneV2(id);
   }
 
   // Eliminar (cancelar) reserva
