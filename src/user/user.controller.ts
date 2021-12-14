@@ -18,6 +18,7 @@ import { Role } from 'src/auth/model/role.enum';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { User } from './entities/user.entity';
 import { Request } from 'express';
+import { ApiBearerAuth } from '@nestjs/swagger';
 // import { LoginUserDto } from '../../auth/dto/login.dto'
 
 @Controller('user')
@@ -36,6 +37,7 @@ export class UserController {
   // }
 
   // Modificación del perfil de usuario
+  @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() createUserDto: CreateUserDto) {
@@ -43,6 +45,7 @@ export class UserController {
   }
 
   // Eliminación del perfil de usuario
+  @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
   delete(@Param('id') id: string) {
@@ -50,6 +53,7 @@ export class UserController {
   }
 
   // Lista de usuarios registrados (incluído filtro por parámetros)
+  @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Get()
   @Roles(Role.Admin)
@@ -58,6 +62,7 @@ export class UserController {
   }
 
   // Encontrar usuario por ID
+  @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Get(':id')
   @Roles(Role.Admin)

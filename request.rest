@@ -7,7 +7,7 @@ GET  http://rentacar-jmrb.herokuapp.com/api/v1/car/?available=1&engine=diesel
 
 
 ### Ordenar coche por precio y limitar el número de registros que aparecen
-GET  http://rentacar-jmrb.herokuapp.com/api/v1/car/price/?available=1&order=0&limit=2
+GET  http://rentacar-jmrb.herokuapp.com/api/v1/car/price/?available=1&order=1&limit=2
 
 
 ### Ordenar coche por año y limitar el número de registros que aparecen
@@ -40,7 +40,7 @@ POST http://rentacar-jmrb.herokuapp.com/api/v1/auth/login
 Content-Type: application/json
 
 {
-    "email": "user@user.com",
+    "email": "miemail2@user.com",
     "password": "1234"
 }
 
@@ -78,28 +78,28 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQ
 
 ### Adición de un coche (permiso admin)
 POST http://rentacar-jmrb.herokuapp.com/api/v1/car
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAdXNlci5jb20iLCJpYXQiOjE2Mzk0NzM1NjQsImV4cCI6MTYzOTU1OTk2NH0.cMocULueqmMTetVX-T0Q1olz6f2ygFK6wFb-fPI0X08
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTYzOTQ3NDY5NywiZXhwIjoxNjM5NTYxMDk3fQ.gthz2_-upbbMPojnqiDL5m19lkZDRxzhcXI8nVJDlKQ
 Content-Type: application/json
 
 {
-    "brand": "Audi",
-    "model": "A3",
-    "year": 2019,
-    "price_day": 30
+    "brand": "Fiat",
+    "model": "Punto",
+    "year": 2018,
+    "price_day": 15
 }
 
 
 ### Actualización de la info de un coche (permiso admin)
-PATCH  http://rentacar-jmrb.herokuapp.com/api/v1/car/1862f335-fd2d-4b1e-b2c0-f3359da1c9f1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTYzOTQ3MjE0OCwiZXhwIjoxNjM5NTU4NTQ4fQ.qCu6v_uUwfV5Uw2aw_m_SSxM6-4KDtcw-CLpEPo8EMo
+PATCH  http://rentacar-jmrb.herokuapp.com/api/v1/car/dfe1bd77-a974-48d6-916f-f92d6aa893bf
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTYzOTQ3NDY5NywiZXhwIjoxNjM5NTYxMDk3fQ.gthz2_-upbbMPojnqiDL5m19lkZDRxzhcXI8nVJDlKQ
 Content-Type: application/json
 
 {
-    "engine": "gasoline",
-    "type": "4wd",
-    "seats": 5,
+    "engine": "diesel",
+    "type": "tourism",
+    "seats": 4,
     "autonomy": 700,
-    "consum": 8,
+    "consum": 7,
     "bond": 600
 }
 
@@ -111,25 +111,25 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQ
 
 ### Alquilar coche
 POST http://rentacar-jmrb.herokuapp.com/api/v1/rental
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAdXNlci5jb20iLCJpYXQiOjE2Mzk0NzM1NjQsImV4cCI6MTYzOTU1OTk2NH0.cMocULueqmMTetVX-T0Q1olz6f2ygFK6wFb-fPI0X08
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1pZW1haWwyQHVzZXIuY29tIiwiaWF0IjoxNjM5NDc0MzAxLCJleHAiOjE2Mzk1NjA3MDF9.mF-VkCTZc1Wqad8qgfDdiVSJpOPZtOgMZomYqnGdjH4
 Content-Type: application/json
 
 {
-    "carId": "1862f335-fd2d-4b1e-b2c0-f3359da1c9f1",
-    "userId": "e97539c5-5af1-46fe-bcbf-82bc04d42f9f",
+    "carId": "613443d5-f901-443d-b6ac-84998c0a74e8",
+    "userId": "d3014290-b273-4402-a22f-30790c49f94a",
     "start_date": "2021-12-15",
     "finish_date": "2021-12-22"
 }
 
 
 ### Devolver coche (permiso admin)
-PATCH http://rentacar-jmrb.herokuapp.com/api/v1/rental/78e147fc-2582-45dc-ad1a-bdf530d040b4
+PATCH http://rentacar-jmrb.herokuapp.com/api/v1/rental/74abeb98-7591-46f4-9e4b-3106902979af
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTYzOTM4ODgyMywiZXhwIjoxNjM5NDc1MjIzfQ.RViycsa1PibI9UC1ELcsKcGG7uZhKToFV3GC_lr7SZM
 Content-Type: application/json
 
 {
-    "carId": "05484aaa-d551-4038-8746-01948c378570",
-    "userId": "6c0ae507-27a6-4916-8dde-9c78bc3c2412"
+    "carId": "1862f335-fd2d-4b1e-b2c0-f3359da1c9f1",
+    "userId": "e97539c5-5af1-46fe-bcbf-82bc04d42f9f"
 }
 
 

@@ -17,7 +17,9 @@ import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Role } from 'src/auth/model/role.enum';
 import { Rental } from './entities/rental.entity';
 import { Request } from 'express';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth('access-token')
 @UseGuards(JwtAuthGuard)
 @Controller('rental')
 export class RentalController {

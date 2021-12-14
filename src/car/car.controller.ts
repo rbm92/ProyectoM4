@@ -18,6 +18,7 @@ import { Roles } from '../auth/decorators/roles.decorators';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Role } from 'src/auth/model/role.enum';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('car')
 export class CarController {
@@ -60,6 +61,7 @@ export class CarController {
   // @ApiBearerAuth('access-token')
   @Post()
   @Roles(Role.Admin)
+  @ApiBearerAuth('access-token')
   create(@Body() createCarDto: CarDto) {
     return this.carService.create(createCarDto);
   }
@@ -68,6 +70,7 @@ export class CarController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Patch(':id')
   @Roles(Role.Admin)
+  @ApiBearerAuth('access-token')
   update(@Param('id') id: string, @Body() updateCarDto: UpdateCarDto) {
     return this.carService.update(id, updateCarDto);
   }
@@ -76,6 +79,7 @@ export class CarController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Delete(':id')
   @Roles(Role.Admin)
+  @ApiBearerAuth('access-token')
   delete(@Param('id') id: string) {
     return this.carService.delete(id);
   }

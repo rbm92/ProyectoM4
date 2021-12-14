@@ -171,7 +171,7 @@ export class RentalService {
 
       return newRental;
     } catch (error) {
-      throw new HttpException('rental not found', HttpStatus.BAD_REQUEST);
+      throw error;
     }
   }
 
