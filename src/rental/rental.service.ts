@@ -49,10 +49,7 @@ export class RentalService {
 
       return newRental;
     } catch (error) {
-      throw new HttpException(
-        'the rental procedure was not successful',
-        HttpStatus.BAD_REQUEST,
-      );
+      throw error;
     }
   }
 
