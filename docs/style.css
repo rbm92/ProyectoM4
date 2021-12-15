@@ -34,6 +34,10 @@ ul  {
     list-style: none;
 }
 
+main{
+    background-color: #f8f8f8;
+}
+
 .main-img{
     width: 100%;
     height: 80vh;
@@ -66,22 +70,34 @@ ul  {
     padding: 30px;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 
 }
 
 .lista>li{
-    width: 500px;
+    max-width: 500px;
+    width: 100%;
     min-height: 240px;
     margin-top: 20px;
     padding: 20px;
-    border: 1px solid #333;
     border-radius: 4px;
     display: flex;
     flex-direction: column;
+    margin-right: 40px;
+    background-color: #fff;
 }
 
-.lista>li:not(:last-child){
-    margin-right: 40px;
+.lista>li:hover{
+    -webkit-box-shadow: 11px 10px 15px -5px rgba(0,0,0,0.56); 
+box-shadow: 11px 10px 15px -5px rgba(0,0,0,0.56);
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.521);
+}
+
+@media (max-width:1200px) {
+.lista>li{
+    margin: 20 auto;
+}
 }
 
 .lista>li>img{
@@ -95,6 +111,18 @@ ul  {
 }
 
 
+.container_car{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.price_day{
+    font-size: 1.4em;
+    font-weight: 700;
+    color: rgb(95, 164, 255);
+}
+
 /* LOGIN */
 
 .form-container{
@@ -103,11 +131,11 @@ ul  {
     margin: 0 auto;
 }
 
-.form-container>h2{
+.form-container>h2 {
     text-align: center;
 }
 
-.form-container>form{
+.form-container>form {
     display: flex;
     flex-direction: column;
 
@@ -118,7 +146,7 @@ ul  {
     margin: 10px 0;
     padding: 10px;
 }
-.form-container button{
+.form-container button {
     margin-top: 20px;
     padding: 12px;
     cursor: pointer;
